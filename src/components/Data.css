@@ -1,0 +1,51 @@
+.form-class {
+    margin: 3.5% 0 0 31%;
+    position: fixed;
+    width: 38vw;
+    height: 7.7vh;
+    border: 1px solid rgb(216, 216, 216);
+    background-color: #156aac;
+    z-index: 1000;
+    border-radius: 10px;
+}
+
+.p-class {
+    font-size: large;
+    color: rgb(216, 216, 216);
+    text-align: center;
+    padding-top: 20vh;
+}
+
+.input-class {
+    width: 32vw;
+    height: 5.9vh;
+    font-size: large;
+    color: rgb(216, 216, 216);
+    background-color: #156aac;
+    padding: 1%;
+    border: none;
+    border-radius: 15px;
+}
+
+.button-class {
+    margin-left: auto;
+    color: rgb(216, 216, 216);
+    background-color: #156aac;
+    border: none;
+    cursor: pointer;
+    padding: 1%;
+    font-size: large;
+}
+
+.load-more {
+    color: rgb(218, 218, 218);
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    margin: 20vh 0 8vh 0;
+    font-size:large;
+}
+
+.load-more:hover{
+    font-size: x-large;
+}
