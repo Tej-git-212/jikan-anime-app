@@ -1,23 +1,27 @@
 .form-class {
-    margin: 3.5% 0 0 31%;
+    margin: 3.5% 0 0 27%;
     position: fixed;
-    width: 38vw;
-    height: 7.7vh;
+    width: 45vw;
+    height: 7.8vh;
     border: 1px solid rgb(216, 216, 216);
     background-color: #156aac;
     z-index: 1000;
-    border-radius: 10px;
+    border-radius: 15px;
 }
 
 .p-class {
     font-size: large;
     color: rgb(216, 216, 216);
-    text-align: center;
     padding-top: 20vh;
+    text-align: center;
 }
 
+.p-class span {
+    opacity: 0.7;
+} 
+
 .input-class {
-    width: 32vw;
+    width: 38vw;
     height: 5.9vh;
     font-size: large;
     color: rgb(216, 216, 216);
@@ -27,7 +31,7 @@
     border-radius: 15px;
 }
 
-.button-class {
+.go-class {
     margin-left: auto;
     color: rgb(216, 216, 216);
     background-color: #156aac;
@@ -37,15 +41,39 @@
     font-size: large;
 }
 
+.bottom-class {
+    margin-top: 20vh;
+    margin-bottom: 5vh;
+}
+
 .load-more {
-    color: rgb(218, 218, 218);
-    display: block;
-    text-align: center;
+    color: rgb(184, 184, 184);
     cursor: pointer;
-    margin: 20vh 0 8vh 0;
-    font-size:large;
+    font-size: large;
+    margin-left: 12vw;
 }
 
 .load-more:hover{
-    font-size: x-large;
+    color: rgb(255, 255, 255);
+}
+
+.prev-btn {
+    margin-left: 27vw;
+}
+
+.next-btn {
+    margin-left: 13vw;
+}
+
+.btn {
+    color: white;
+    padding: 10px 15px;
+    border: 1px solid white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn:hover{
+    background-color: white;
+    color: #156aac;
 }
