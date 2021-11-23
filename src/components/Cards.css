@@ -6,7 +6,6 @@
     width: 15vw;
     height: 8vh;
     margin-inline-start: 7.7vw;
-    flex-grow: 1;
 }
 
 .card-box a img{
@@ -20,7 +19,7 @@
 
 .card-box h5 {
     display: flex;
-    height: 85%;
+    height: 88%;
     padding: 7% 2% 0 4%;
     background-color: #fff;
     border-radius: 0 0 10px 10px;
@@ -29,6 +28,3 @@
     z-index: 10;
     top: -9px;
 }
-
-
-
