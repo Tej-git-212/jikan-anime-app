@@ -1,12 +1,19 @@
+.loader-div {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-color: blanchedalmond;
+}
+
 .load-head {
-    margin-top: 30vh;
     text-align: center;
-    color: #ffffff;
     animation: load 3s infinite;
 }
 
 .loader {
-    margin: 2% 0 0 45%; 
+    margin-top: 1%;
     border: 16px solid #f3f3f3;
     border-radius: 50%;
     border-top: 16px solid #43067c;

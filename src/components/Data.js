@@ -1,114 +1,106 @@
-import React, { useState, useEffect, useReducer } from 'react';
-import axios from 'axios';
-import Loader from './Loader';
-import Cards from './Cards';
-import './Data.css';
-
-const initialState = {
-    loading: true,
-    error: "",
-    posts: []
-}
-
-const reducer = (state, action) => {
-    switch(action.type) {
-        case 'FETCH_SUCCESS':
-            return {
-                loading: false,
-                posts: action.payload,
-                error: '',
-                sub:true
-            }
-        case 'FETCH_ERROR':
-            return {
-                loading: false,
-                post: {},
-                error: 'Something went wrong....'
-            }
-        default:
-            return state
-    }
-}
+import React, { useState, useCallback, useEffect } from "react";
+import axios from "axios";
+import Loader from "./Loader";
+import Cards from "./Cards";
+import "./Data.css";
+import Filter from "./Filter";
 
 function Data() {
-    const [state, dispatch] = useReducer(reducer, initialState)
-    const [q, setQ] = useState('naruto')
-    const [sub, setSub] = useState(false)
-    const [limit, setLimit] = useState(16)
-    const [pagenum, setPagenum] = useState(1)
+  const key = "93e44cf97ab92a0c64ac4d609e0f4e3b";
+  const [q, setQ] = useState("");
+  const [posts, setPosts] = useState({});
+  const [pagenum, setPagenum] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [filtered, setFiltered] = useState([]);
+  const [activeGenre, setActiveGenre] = useState(0);
 
-    useEffect(() => {
-        axios
-        .get(`https://api.jikan.moe/v3/search/anime?q=${q}&limit=${limit}&page=${pagenum}`)
-        .then(response => {
-            dispatch({type: 'FETCH_SUCCESS', payload: response.data.results})
-        })
-        .catch(error => {
-            dispatch({type: 'FETCH_ERROR'})
-        }
-        )
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [sub, limit, pagenum])
+  const getData = useCallback(() => {
+    axios
+      .get(
+        `https://api.themoviedb.org/3/movie/popular?api_key=${key}&page=${pagenum}`
+      )
+      .then(function (response) {
+        setLoading(false);
+        setPosts(response.data.results);
+        setFiltered(response.data.results);
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.log(error);
+      });
+  }, [pagenum]);
 
-    return (
+  useEffect(() => getData(), [getData]);
 
-        <div>
-            {( state.loading || state.posts.length === 0 ) ? 
-            <Loader /> : 
-            <div>
-            {
-                <>
-                    <form className='form-class' onSubmit={(e) => {e.preventDefault()
-                     setSub(true)
-                     setLimit(16)
-                     setPagenum(1)
-                     console.log(state.posts.length)
-                        }}>
-                        <input className='input-class' type="text" name="q" value={q} placeholder="Search keyword" 
-                        onChange = {e => {
-                        setSub(false) 
-                        setQ(e.target.value)}}
-                        ></input>
-                        <button className='go-class' type="submit">Go</button>
-                    </form>
-                    <p className='p-class'><span> Requesting: </span> https://api.jikan.moe/v3/search/anime?q={q}&limit={limit}&page={pagenum}</p>
-                </>
-            }
-            { state.posts.length > 0 && state.posts.map(post => (
-                        <Cards
-                            key={post.mal_id}
-                            mal_id={post.mal_id}
-                            image_url={post.image_url}
-                            title={post.title}
-                            url={post.url}
-                        />
-            )) } 
-            {
-                <div className='bottom-class'>
-                <button className='btn prev-btn' onClick={() => {
-                    // eslint-disable-next-line no-unused-expressions
-                    pagenum > 1 && setPagenum(prevState => prevState - 1)
-                    setLimit(16)
-                    }}> Previous </button>
+  function handleQuery() {
+    console.log(q);
+  }
 
-                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                <a className='load-more' onClick={() => {
-                    console.log(state.posts.length)
-                    setLimit(prevState => prevState + 16)}}>
-                    Load more...
-                </a>
-                
-                <button className='btn next-btn' onClick={() => {
-                    setPagenum(prevState => prevState + 1)
-                    setLimit(16)
-                    }}> Next </button>
-                </div>
-            }
-            </div>
-        }
-        {state.error ? state.error : ''}
+  return (
+    <>
+      {loading ? (
+        <Loader />
+      ) : (
+        <div className="app">
+          {posts.length > 0 && (
+            <>
+              <div className="header">
+                <form className="form-class">
+                  <input
+                    className="input-class"
+                    type="text"
+                    value={q}
+                    placeholder="Enter title"
+                    onChange={(e) => setQ(e.target.value)}
+                  />
+                  <button
+                    className="btn-class"
+                    type="submit"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleQuery();
+                    }}
+                  >
+                    Go
+                  </button>
+                </form>
+                <Filter
+                  popular={posts}
+                  setFiltered={setFiltered}
+                  activeGenre={activeGenre}
+                  setActiveGenre={setActiveGenre}
+                />
+              </div>
+              <div className="container">
+                {filtered.map((movie) => {
+                  return <Cards key={movie.id} movie={movie} />;
+                })}
+              </div>
+              <div className="bottom-class">
+                <button
+                  className="btn-class"
+                  onClick={() => {
+                    pagenum > 1 && setPagenum((pagenum) => pagenum - 1);
+                  }}
+                >
+                  Previous
+                </button>
+                <p>{pagenum}</p>
+                <button
+                  className="btn-class"
+                  onClick={() => {
+                    pagenum < 1000 && setPagenum((pagenum) => pagenum + 1);
+                  }}
+                >
+                  Next
+                </button>
+              </div>
+            </>
+          )}
         </div>
-    )
+      )}
+    </>
+  );
 }
 
-export default Data
+export default Data;
