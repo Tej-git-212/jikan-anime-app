@@ -37,11 +37,11 @@ function Data() {
   }
 
   return (
-    <>
+    <div className="app">
       {loading ? (
         <Loader />
       ) : (
-        <div className="app">
+        <>
           {posts.length > 0 && (
             <>
               <div className="header">
@@ -97,9 +97,9 @@ function Data() {
               </div>
             </>
           )}
-        </div>
+        </>
       )}
-    </>
+    </div>
   );
 }
 

@@ -4,7 +4,6 @@
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    background-color: blanchedalmond;
 }
 
 .load-head {
@@ -13,7 +12,7 @@
 }
 
 .loader {
-    margin-top: 1%;
+    margin-top: 2%;
     border: 16px solid #f3f3f3;
     border-radius: 50%;
     border-top: 16px solid #43067c;
